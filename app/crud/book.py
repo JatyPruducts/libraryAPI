@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app.models import Book
 from app.schemas import BookCreate, BookUpdate
+from typing import List
 
 
 def get_book(db: Session, book_id: int):
