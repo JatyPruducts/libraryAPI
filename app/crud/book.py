@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app.models import Book
 from app.schemas import BookCreate, BookUpdate
 from typing import List
+from app.utils.auth import get_password_hash  # Импорт функции
 
 
 def get_book(db: Session, book_id: int):
@@ -24,7 +25,7 @@ def update_book(db: Session, book_id: int, book: BookUpdate):
     db_book = get_book(db, book_id)
     if not db_book:
         return None
-    for key, value in book.dict().items():
+    for key, value in book.dict(exclude_unset=True).items():
         setattr(db_book, key, value)
     db.commit()
     db.refresh(db_book)

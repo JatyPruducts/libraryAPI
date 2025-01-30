@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app.models import Author
 from app.schemas import AuthorCreate, AuthorUpdate
+from typing import List
 
 
 def get_author(db: Session, author_id: int):
@@ -23,7 +24,7 @@ def update_author(db: Session, author_id: int, author: AuthorUpdate):
     db_author = get_author(db, author_id)
     if not db_author:
         return None
-    for key, value in author.dict().items():
+    for key, value in author.dict(exclude_unset=True).items():
         setattr(db_author, key, value)
     db.commit()
     db.refresh(db_author)

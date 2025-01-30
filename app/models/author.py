@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Date, Text
 from sqlalchemy.orm import relationship
 from app.database import Base
 
+
 class Author(Base):
     __tablename__ = "authors"
 
@@ -10,4 +11,5 @@ class Author(Base):
     biography = Column(Text)
     date_of_birth = Column(Date)
 
+    # Связь "многие ко многим" с книгами
     books = relationship("Book", secondary="book_authors", back_populates="authors")
