@@ -11,14 +11,16 @@ load_dotenv()
 # Определение базового класса для всех моделей
 Base = declarative_base()
 
-# Настройка подключения к базе данных
+# Настройка подключения к основной базе данных
 DATABASE_URL = settings.DATABASE_URL
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+# Настройка подключения к тестовой базе данных
+TEST_DATABASE_URL = settings.TEST_DATABASE_URL
 
-# Функция для получения сессии базы данных
+
 def get_db():
     db = SessionLocal()
     try:
