@@ -13,7 +13,7 @@ def get_user_by_username(db: Session, username: str):
 
 
 def create_user(db: Session, user: UserCreate):
-    hashed_password = get_password_hash(user.password)  # Теперь функция доступна
+    hashed_password = get_password_hash(user.password)
     db_user = User(username=user.username, hashed_password=hashed_password, is_admin=user.is_admin)
     db.add(db_user)
     db.commit()
